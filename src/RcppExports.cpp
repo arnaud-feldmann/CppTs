@@ -12,22 +12,34 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // Cpp_window
-SEXP Cpp_window(TimeSerie x, SEXP tseps, SEXP start, SEXP end);
+SEXP Cpp_window(TimeSerie const& x, double tseps, NumericVector const& start, NumericVector const& end);
 RcppExport SEXP _CppTs_Cpp_window(SEXP xSEXP, SEXP tsepsSEXP, SEXP startSEXP, SEXP endSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< TimeSerie >::type x(xSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type tseps(tsepsSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type start(startSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type end(endSEXP);
+    Rcpp::traits::input_parameter< TimeSerie const& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type tseps(tsepsSEXP);
+    Rcpp::traits::input_parameter< NumericVector const& >::type start(startSEXP);
+    Rcpp::traits::input_parameter< NumericVector const& >::type end(endSEXP);
     rcpp_result_gen = Rcpp::wrap(Cpp_window(x, tseps, start, end));
+    return rcpp_result_gen;
+END_RCPP
+}
+// test
+TimeSerie test(const TimeSerieNumericMatrix& x);
+RcppExport SEXP _CppTs_test(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const TimeSerieNumericMatrix& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(test(x));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_CppTs_Cpp_window", (DL_FUNC) &_CppTs_Cpp_window, 4},
+    {"_CppTs_test", (DL_FUNC) &_CppTs_test, 1},
     {NULL, NULL, 0}
 };
 

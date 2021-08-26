@@ -118,12 +118,16 @@ NumericMatrix window_impl(NumericMatrix const& x,double const& tseps,NumericVect
 }
 
 //[[Rcpp::export]]
-SEXP Cpp_window(TimeSerie x,SEXP tseps,SEXP start,SEXP end) {
+SEXP Cpp_window(TimeSerie const& x,double tseps,NumericVector const& start,NumericVector const& end) {
   SEXP xsexp = wrap(x);
   SEXP res;
-  if (!Rf_isNumeric(start) || !Rf_isNumeric(end)) stop("Incorrect window");
-  if (Rf_isMatrix(xsexp)) res = window_impl((NumericMatrix const&)xsexp,as<double>(tseps),(NumericVector const&)start,(NumericVector const&)end);
-  else if (Rf_isNumeric(xsexp)) res = window_impl((NumericVector const&)xsexp,as<double>(tseps),(NumericVector const&)start,(NumericVector const&)end);
+  if (Rf_isMatrix(xsexp)) res = window_impl((NumericMatrix const&)xsexp,tseps,start,end);
+  else if (Rf_isNumeric(xsexp)) res = window_impl((NumericVector const&)xsexp,tseps,start,end);
   else stop("Not a ts object");
   return res;
+}
+
+//[[Rcpp::export]]
+TimeSerie test(const TimeSerieNumericMatrix& x) {
+  return wrap(x);
 }

@@ -5,3 +5,7 @@ Cpp_window <- function(x, tseps, start, end) {
     .Call('_CppTs_Cpp_window', PACKAGE = 'CppTs', x, tseps, start, end)
 }
 
+test <- function(x) {
+    .Call('_CppTs_test', PACKAGE = 'CppTs', x)
+}
+
